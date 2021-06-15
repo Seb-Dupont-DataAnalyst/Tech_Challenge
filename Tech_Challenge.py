@@ -347,7 +347,7 @@ elif choice == "3. Explication de l'impact de la météo":
 
     st.write("")
     st.write("")
-    st.markdown("<body class='p'>Conclusion</body>", unsafe_allow_html=True)
+    st.markdown("<body class='p3'>Conclusion</body>", unsafe_allow_html=True)
     st.write("")
     st.write("")    
     st.write("Contrairement à ce que pense Bernardo, le vent n'est pas la variable qui impacte le plus les ventes.")
