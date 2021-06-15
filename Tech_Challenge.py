@@ -60,7 +60,7 @@ if choice == 'Accueil':
     st.write("")
     st.write("")
     st.write("")
-    st.image("Image Tech Challenge.jpg")
+    st.image("https://github.com/Seb-Dupont-DataAnalyst/Tech_Challenge/blob/main/Image%20Tech%20Challenge.JPG")
 
 
 
