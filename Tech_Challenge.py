@@ -83,7 +83,7 @@ if choice == "Analyse descriptive exploratoire (EDA)":
 
     st.write("")
     st.write("- Aucune donnée manquante, 260 jours d'activité répartis sur 2 produits soit 520 lignes dans la base de données :")
-    st.image("Image Tech Challenge df_info.jpg")
+    st.image("https://github.com/Seb-Dupont-DataAnalyst/Tech_Challenge/blob/main/Image%20Tech%20Challenge%20df_info.JPG")
     
 
     st.write("")
