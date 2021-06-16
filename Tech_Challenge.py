@@ -164,7 +164,7 @@ if choice == "1. Analyse descriptive exploratoire (EDA)":
     fig10.update_xaxes(showgrid=False, gridwidth=1, gridcolor='black')
     fig10.update_yaxes(showgrid=False, gridwidth=1, gridcolor='black') 
     fig10.update_layout(xaxis_title = "Jours", yaxis_title = "Ventes")
-    fig10.show()
+    st.write(fig10)
     
     
     st.markdown("<body class='p4'>La saisonnalité des 2 produits n'est pas la même. On a un produit A qui se vend plus l'hiver (de novembre à janvier) et un produit B qui se vend beaucoup plus l'été (juin à septembre)</body>", unsafe_allow_html=True)
