@@ -154,7 +154,7 @@ if choice == "1. Analyse descriptive exploratoire (EDA)":
     fig10 = px.box(df_sales, x="day-of-week",y="SALES", color="ITEM")
     fig10.update_layout(
     title={
-        'text': "Saisonnalité des ventes par item",
+        'text': "Saisonnalité des ventes par item par jour",
         'y':0.9,
         'x':0.5,
         'xanchor': 'center',
