@@ -164,6 +164,7 @@ if choice == "1. Analyse descriptive exploratoire (EDA)":
     fig10.update_xaxes(showgrid=False, gridwidth=1, gridcolor='black')
     fig10.update_yaxes(showgrid=False, gridwidth=1, gridcolor='black') 
     fig10.update_layout(xaxis_title = "Jours", yaxis_title = "Ventes")
+    fig10.update_layout(width=1400,height=650)
     st.write(fig10)
     
     
