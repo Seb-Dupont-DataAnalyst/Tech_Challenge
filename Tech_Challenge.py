@@ -77,6 +77,7 @@ if choice == "1. Analyse descriptive exploratoire (EDA)":
 
     df_sales['DATE'] = df_sales['DATE'].astype('datetime64[ns]')
     df_sales['MONTH'] = df_sales['DATE'].apply(lambda x: x.month)
+    df_sales['day-of-week'] = df_sales['DATE'].dt.dayofweek
     
     
     st.write("- Aperçu des données du dataset fourni :")
@@ -149,6 +150,23 @@ if choice == "1. Analyse descriptive exploratoire (EDA)":
     fig2.update_layout(xaxis_title = "Mois", yaxis_title = "Ventes")
     fig2.update_layout(width=1400,height=650)
     st.write(fig2)
+    
+    fig10 = px.box(df_sales, x="day-of-week",y="SALES", color="ITEM")
+    fig10.update_layout(
+    title={
+        'text': "Saisonnalité des ventes par item",
+        'y':0.9,
+        'x':0.5,
+        'xanchor': 'center',
+        'yanchor': 'bottom'})
+    fig10.update_layout({'plot_bgcolor': 'rgba(0,0,0,0)',
+                       'paper_bgcolor': 'rgba(0,0,0,0)', })
+    fig10.update_xaxes(showgrid=False, gridwidth=1, gridcolor='black')
+    fig10.update_yaxes(showgrid=False, gridwidth=1, gridcolor='black') 
+    fig10.update_layout(xaxis_title = "Jours", yaxis_title = "Ventes")
+    fig10.show()
+    
+    
     st.markdown("<body class='p4'>La saisonnalité des 2 produits n'est pas la même. On a un produit A qui se vend plus l'hiver (de novembre à janvier) et un produit B qui se vend beaucoup plus l'été (juin à septembre)</body>", unsafe_allow_html=True)
 
 elif choice == '2. Trouver la boutique correspondante':
