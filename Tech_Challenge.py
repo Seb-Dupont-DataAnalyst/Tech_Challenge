@@ -38,6 +38,9 @@ st.markdown('<body class="title">Tech Challenge - Data Science Developer</body>'
 choice = st.sidebar.radio("", ('Accueil', "1. Analyse descriptive exploratoire (EDA)", '2. Trouver la boutique correspondante',"3. Explication de l'impact de la météo",'4. Prévisions de ventes'
 ))
 
+df_sales['DATE'] = df_sales['DATE'].apply(lambda x: datetime.strptime(x, '%d-%m-%Y'))
+df_sales['MONTH'] = df_sales['DATE'].apply(lambda x: x.month)
+df_sales['day-of-week'] = df_sales['DATE'].dt.dayofweek
 df_sales['DATE'] = pd.to_datetime(df_sales['DATE']).dt.strftime('%Y-%m-%d')
 df_sales_pivot = df_sales.pivot_table(index='DATE', columns='ITEM', values='SALES')
 df_sales_pivot.reset_index(inplace=True)
@@ -328,7 +331,7 @@ elif choice == "3. Explication de l'impact de la météo":
         corr_pairs = correlation_mat.unstack()['A'].sort_values(ascending=False).iloc[1:10]
         st.write('Plus fortes corrélations positives :')
         st.write(corr_pairs)
-        st.write("Les principales variables impactant positivement les ventes du produit A sont donc les précipitations, le code de température de l'après-midi et le taux de couverture nuageuse.")
+        st.write("Les principales variables impactant positivement les ventes du produit A sont donc les précipitations, le taux de couverture nuageuse et le taux d'humidité.")
     st.write('')
 
     with col2:
@@ -338,7 +341,7 @@ elif choice == "3. Explication de l'impact de la météo":
         corr_pairs = correlation_mat.unstack()['A'].sort_values(ascending=True).iloc[1:10]
         st.write('Plus fortes corrélations négatives :')
         st.write(corr_pairs)
-        st.write("Les principales variables impactant négativement les ventes du produit A sont donc la durée d'ensoleillement, l'index de chaleur maximale et la température de l'après-midi.")
+        st.write("Les principales variables impactant négativement les ventes du produit A sont donc la température maximale, l'index de chaleur maximale et la température de l'après-midi.")
         
 
     st.write('')
@@ -355,18 +358,18 @@ elif choice == "3. Explication de l'impact de la météo":
         corr_pairs2 = correlation_mat2.unstack()['B'].sort_values(ascending=False).iloc[1:10]
         st.write('Plus fortes corrélations positives :')
         st.write(corr_pairs2)
-        st.write("Les principales variables impactant positivement les ventes du produit B sont donc la température de l'après-midi, l'index de chaleur maximale et la température maximale.")
+        st.write("Les principales variables impactant positivement les ventes du produit B sont donc la température maximale, l'index de chaleur maximale et la température de l'après-midi.")
     with col2:
         correlation_mat2 = df_sales_bordeaux.corr()
 
         corr_pairs2 = correlation_mat2.unstack()['B'].sort_values(ascending=True).iloc[1:10]
         st.write('Plus fortes corrélations négatives :')
         st.write(corr_pairs2)
-        st.write("Les principales variables impactant négativement les ventes du produit B sont donc les précipitations, le code de température de l'après-midi et le taux de couverture nuageuse.")
+        st.write("Les principales variables impactant négativement les ventes du produit B sont donc le taux de couverture nuageuse, le taux d'humidité et les précipitations.")
 
     st.write("")
     st.write("")
-    st.markdown("<body class='p3'>Conclusion</body>", unsafe_allow_html=True)
+    st.markdown("<body class='p'>Conclusion</body>", unsafe_allow_html=True)
     st.write("")
     st.write("")    
     st.write("Contrairement à ce que pense Bernardo, le vent n'est pas la variable qui impacte le plus les ventes.")
@@ -386,8 +389,7 @@ elif choice == "4. Prévisions de ventes":
     st.write("")
     st.write("Pour affiner nos prévisions de ventes, nous allons nous appuyer sur un modèle de machine learning.")
     st.write("Toutes les données fournies sont importantes et participent à améliorer la précision d'un modèle.")
-    st.write("Ici nous en sommes dans une situation délicate car les données fournies dans le dataset de prévision ne sont pas assez nombreuses et les variables les plus corrélées sont absentes.")
-    st.write("Nous allons donc comparer plusieurs modèles pour choisir celui qui est le plus proche des données réelles lorsqu'il est appliqué sur l'année 2019")
+    st.write("Nous allons comparer plusieurs modèles pour choisir celui qui est le plus proche des données réelles lorsqu'il est appliqué sur l'année 2019")
     st.write("On retient 2 indicateurs pour cette comparaison : le Mean Absolute Error (MAE) qui est la moyenne des valeurs absolues des écarts avec le réel et le Root Mean Squared Error (RMSE) qui est la racine carrée de la moyenne des racines carrées des écarts.")
     st.write("")
 
@@ -510,6 +512,7 @@ elif choice == "4. Prévisions de ventes":
 
 
     df_predict = pd.read_csv("https://raw.githubusercontent.com/murpi/wilddata/master/test/forecast.csv")
+    df_predict = df_predict[2:]
 
     X = df_predict[['PRECIP_TOTAL_DAY_MM',	'CLOUDCOVER_AVG_PERCENT', 'HUMIDITY_MAX_PERCENT', 'MAX_TEMPERATURE_C',	'MIN_TEMPERATURE_C',	'WINDSPEED_MAX_KMH',	'VISIBILITY_AVG_KM',	'PRESSURE_MAX_MB']]
     df_predict['predictions A'] = model_gbr.predict(X)
@@ -517,6 +520,7 @@ elif choice == "4. Prévisions de ventes":
 
     df_predict['predictions A'] = df_predict['predictions A'].round(decimals=0)
     df_predict['predictions B'] = df_predict['predictions B'].round(decimals=0)
+
 
     fig = go.Figure()
     fig.add_trace(go.Bar(x=df_predict['DATE'], y=df_predict['predictions A'], name = 'Produit A', text=df_predict['predictions A'], textposition='auto', textfont=dict(color="white")))
