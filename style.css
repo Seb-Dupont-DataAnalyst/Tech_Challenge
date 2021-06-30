@@ -6,6 +6,7 @@ footer {
 footer:after {
 	content:'goodbye'; 
 	visibility: visible;
+	background-image: url("https://github.com/Seb-Dupont-DataAnalyst/Tech_Challenge/blob/main/fiver_2.png");
 	display: block;
 	position: relative;
 	#background-color: red;
