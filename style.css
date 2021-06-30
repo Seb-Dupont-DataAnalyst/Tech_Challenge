@@ -1,14 +1,3 @@
-footer:after {
-	content:'data night fiverr.'; 
-	visibility: visible;
-	background-image: url("https://github.com/Seb-Dupont-DataAnalyst/Tech_Challenge/blob/main/fiver_2.png");
-	display: block;
-	position: relative;
-	#background-color: red;
-	padding: 5px;
-	top: 2px;
-}
-
 
 .stTextInput>div>div>input {
 color: white;
